@@ -265,11 +265,11 @@ func (m *BoostService) handleRegisterValidator(w http.ResponseWriter, req *http.
 			log := log.WithField("url", url)
 
 			_, err := SendHTTPRequest(context.Background(), m.httpClientRegVal, http.MethodPost, url, ua, nil, payload, nil)
-			relayRespCh <- err
 			if err != nil {
 				log.WithError(err).Warn("error calling registerValidator on relay")
-				return
 			}
+			relayRespCh <- err
+
 		}(relay)
 	}
 
